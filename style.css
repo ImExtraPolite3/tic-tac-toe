@@ -1,0 +1,9 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 150px);
+}
+
+.board-square {
+  border: solid;
+  height: 150px;
+}
