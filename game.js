@@ -1,22 +1,37 @@
 const createGameboard = (function () {
   const Gameboard = {
-    gameboard:[,,,,,,,,]
+    gameboard:['','','','','','','','','']
   };
 
   return Gameboard.gameboard;
 })();
 
-function createPlayer (name) {
+function createPlayer (name, choice) {
   let points = 0;
   const increasePoints = () => points++
   const getPoint = () => points;
 
-  return { name, increasePoints, getPoint }
+  return { name, choice, increasePoints, getPoint }
 }
 
-const john = createPlayer('john');
+function playGame() {
+  const board = document.querySelectorAll('.board-square');
+  const getNameOne = prompt('player one enter name: ');
+  const getNameTwo = prompt('player two enter name: ');
+  const playerOne = createPlayer(getNameOne, 'X');
+  const playerTwo = createPlayer(getNameTwo, 'O');
 
-john.increasePoints();
-john.increasePoints();
+  for (let i = 0; i < 9; i++) {
+    if (i % 2 == 0) {
+      board[i].addEventListener('click', () => {
+        board[i].textContent = playerOne.choice;
+      })
+    } else {
+      board[i].addEventListener('click', () => {
+        board[i].textContent = playerTwo.choice;
+      })
+    }
+  }
+}
 
-console.log(john.getPoint());
+playGame();
