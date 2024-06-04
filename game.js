@@ -22,15 +22,13 @@ function playGame() {
   const playerTwo = createPlayer(getNameTwo, 'O');
 
   for (let i = 0; i < 9; i++) {
-    if (i % 2 == 0) {
-      board[i].addEventListener('click', () => {
+    board[i].addEventListener('click', () => {
+      if (i % 2 === 0) {
         board[i].textContent = playerOne.choice;
-      })
-    } else {
-      board[i].addEventListener('click', () => {
+      } else {
         board[i].textContent = playerTwo.choice;
-      })
-    }
+      }
+    })
   }
 }
 
