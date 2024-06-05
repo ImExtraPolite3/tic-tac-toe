@@ -30,13 +30,27 @@ const connectBoard = function () {
   return createGameboard;
 };
 
-function playGame() {
-  const board = connectBoard();
-
+function userInput() {
+  const board = document.querySelectorAll('.board-square');
   const playerOne = createPlayer('player one', 'X');
   const playerTwo = createPlayer('player two', 'O');
+  let num = 0;
 
+  board.forEach(eachSquare => {
+    eachSquare.addEventListener('click', () => {
+      if (num < 9 && num % 2 === 0) {
+        eachSquare.textContent = playerOne.choice;
+        num++;
+      } else if (num < 9 && num % 2 !== 0) {
+        eachSquare.textContent = playerTwo.choice;
+        num++;
+      }
+    })
+  })
 }
 
-connectBoard;
-playGame();
+const winCondition = function () {
+  
+}
+
+userInput();
