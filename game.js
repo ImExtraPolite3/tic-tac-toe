@@ -37,24 +37,33 @@ function userInput() {
 
   board.forEach(eachSquare => {
     eachSquare.addEventListener('click', () => {
-      if (num < 9 && num % 2 === 0 && winCondition() !== 'player one win') {
+      if (num < 9 && num % 2 === 0) {
         eachSquare.textContent = playerOne.choice;
-        console.log(winCondition());
+        // console.log(winCondition());
         num++;
-      } else if (num < 9 && num % 2 !== 0 && winCondition() !== 'player one win') {
+      } else if (num < 9 && num % 2 !== 0) {
         eachSquare.textContent = playerTwo.choice;
-        console.log(winCondition());
+        // console.log(winCondition());
         num++;
       } 
+      // console.log(connectBoard());
+      winCondition();
     })
   })
 }
 
 const winCondition = function () {
   const squares = connectBoard();
+  const combination = {
+    line1: [0, 1, 2],
+    line2: [0, 4, 8]
+  };
+  const something = Object.values(combination);
 
-  if (squares[0] === 'X' && squares[1] === 'X' && squares[2] === 'X') {
-    return 'player one win';
+  for (let i = 0; i < something.length; i++) {
+    if (squares[something[i][0]] === 'X' && squares[something[i][1]] === 'X' && squares[something[i][2]] === 'X') {
+      console.log('player one wins');
+    }
   }
 }
 
