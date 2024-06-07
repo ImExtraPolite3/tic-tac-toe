@@ -52,11 +52,12 @@ function userInput() {
         }
 
         announce(winCondition(playerOne.name, playerTwo.name), playerOne.getPoint(), playerTwo.getPoint(), playerOne.name, playerTwo.name);
-        playAnotherGame();
         num = 0;
       }
     })
   })
+  resetScore(playerOne.resetPoints(), playerTwo.resetPoints());
+  playAnotherGame();
 }
 
 const announce = function (winner, playerOneScore, playerTwoScore, playerOneName, playerTwoName) {
@@ -82,6 +83,23 @@ const playAnotherGame = function () {
       board[i].textContent = '';
     }
 
+    afterGame.close();
+  })
+}
+
+const resetScore = function (playerOneReset, playerTwoReset) {
+  const reset = document.querySelector('.reset');
+  const board = document.querySelectorAll('.board-square');
+  const afterGame = document.querySelector('.after-game');
+
+  reset.addEventListener('click', () => {
+    for (let i = 0; i < createGameboard.length; i++) {
+      createGameboard[i] = '';
+      board[i].textContent = '';
+    }
+
+    playerOneReset;
+    playerTwoReset;
     afterGame.close();
   })
 }
