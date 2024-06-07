@@ -17,7 +17,7 @@ function createPlayer (name, choice) {
 
 const connectBoard = function () {
   const board = document.querySelectorAll('.board-square');
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < createGameboard.length; i++) {
     createGameboard[i] = board[i].textContent;
   }
 
@@ -52,6 +52,8 @@ function userInput() {
         }
 
         announce(winCondition(playerOne.name, playerTwo.name), playerOne.getPoint(), playerTwo.getPoint(), playerOne.name, playerTwo.name);
+        playAnotherGame();
+        num = 0;
       }
     })
   })
@@ -70,7 +72,18 @@ const announce = function (winner, playerOneScore, playerTwoScore, playerOneName
 }
 
 const playAnotherGame = function () {
-  
+  const afterGame = document.querySelector('.after-game');
+  const nextGame = document.querySelector('.next-game');
+  const board = document.querySelectorAll('.board-square');
+
+  nextGame.addEventListener('click', () => {
+    for (let i = 0; i < createGameboard.length; i++) {
+      createGameboard[i] = '';
+      board[i].textContent = '';
+    }
+
+    afterGame.close();
+  })
 }
 
 const winCondition = function (playerOneName, playerTwoName) {
