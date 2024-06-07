@@ -10,8 +10,9 @@ function createPlayer (name, choice) {
   let points = 0;
   const increasePoints = () => points++
   const getPoint = () => points;
+  const resetPoints = () => points = 0;
 
-  return { name, choice, increasePoints, getPoint }
+  return { name, choice, increasePoints, getPoint, resetPoints }
 }
 
 const connectBoard = function () {
@@ -31,38 +32,66 @@ function userInput() {
 
   board.forEach(eachSquare => {
     eachSquare.addEventListener('click', () => {
-      if (num < 9 && num % 2 === 0 && winCondition() !== 'player one wins') {
-        eachSquare.textContent = playerOne.choice;
-        // console.log(winCondition());
-        num++;
-      } else if (num < 9 && num % 2 !== 0 && winCondition() !== 'player two wins') {
-        eachSquare.textContent = playerTwo.choice;
-        // console.log(winCondition());
-        num++;
-      } 
-      // console.log(connectBoard());
-      // winCondition();
-      console.log(winCondition());
+      if (num <= 8 && num % 2 === 0 && winCondition(playerOne.name, playerTwo.name) !== playerOne.name + ' wins') {
+        if (eachSquare.textContent === '') {
+          eachSquare.textContent = playerOne.choice;
+          num++;
+        }
+      } else if (num <= 8 && num % 2 !== 0 && winCondition(playerOne.name, playerTwo.name) !== playerTwo.name + ' wins') {
+        if (eachSquare.textContent === '') {
+          eachSquare.textContent = playerTwo.choice;
+          num++;
+        }
+      }
+
+      if (winCondition(playerOne.name, playerTwo.name) === playerOne.name + ' wins' || winCondition(playerOne.name, playerTwo.name) === playerTwo.name + ' wins') {
+        if (winCondition(playerOne.name, playerTwo.name) === playerOne.name + ' wins') {
+          playerOne.increasePoints();
+        } else {
+          playerTwo.increasePoints();
+        }
+
+        announce(winCondition(playerOne.name, playerTwo.name), playerOne.getPoint(), playerTwo.getPoint(), playerOne.name, playerTwo.name);
+      }
     })
   })
 }
 
-const winCondition = function () {
+const announce = function (winner, playerOneScore, playerTwoScore, playerOneName, playerTwoName) {
+  const afterGame = document.querySelector('.after-game');
+  const announceWinner = document.querySelector('.announce-winner');
+  const displayPlayerOneScore = document.querySelector('.players-one-score');
+  const displayPlayerTwoScore = document.querySelector('.players-two-score');
+
+  announceWinner.textContent = winner;
+  displayPlayerOneScore.textContent = `${playerOneName}'s score: ${playerOneScore}`;
+  displayPlayerTwoScore.textContent = `${playerTwoName}'s score: ${playerTwoScore}`;
+  afterGame.showModal();
+}
+
+const playAnotherGame = function () {
+  
+}
+
+const winCondition = function (playerOneName, playerTwoName) {
   const squares = connectBoard();
   const combination = {
     line1: [0, 1, 2],
     line2: [3, 4, 5],
     line3: [6, 7, 8],
     line4: [0, 4, 8],
-    line5: [2, 4, 6]
+    line5: [2, 4, 6],
+    line6: [0, 3, 6],
+    line7: [1, 4, 7],
+    line8: [2, 5, 8]
   };
   const something = Object.values(combination);
 
   for (let i = 0; i < something.length; i++) {
     if (squares[something[i][0]] === 'X' && squares[something[i][1]] === 'X' && squares[something[i][2]] === 'X') {
-      return 'player one wins';
+      return playerOneName + ' wins';
     } else if (squares[something[i][0]] === 'O' && squares[something[i][1]] === 'O' && squares[something[i][2]] === 'O') {
-      return 'player two wins';
+      return playerTwoName + ' wins';
     }
   }
 }
