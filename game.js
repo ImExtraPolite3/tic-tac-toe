@@ -55,8 +55,6 @@ function userInput() {
         announce(winCondition(playerOne.name, playerTwo.name), playerOne.getPoint(), playerTwo.getPoint(), playerOne.name, playerTwo.name);
         num = 0;
       }
-      console.log(playerOne.getPoint());
-      console.log(playerTwo.getPoint());
       playAnotherGame();
       reset.addEventListener('click', () => resetScore(playerOne.resetPoints(), playerTwo.resetPoints()));
     })
