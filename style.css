@@ -1,9 +1,12 @@
 .board {
   display: grid;
   grid-template-columns: repeat(3, 150px);
+  justify-content: center;
 }
 
 .board-square {
   border: solid;
   height: 150px;
+  text-align: center;
+  font-size: 8.5rem;
 }
