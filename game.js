@@ -45,9 +45,7 @@ function userInput() {
         }
       }
 
-      console.log(winCondition(playerOne.name, playerTwo.name));
-
-      if (winCondition(playerOne.name, playerTwo.name) === playerOne.name + ' wins' || winCondition(playerOne.name, playerTwo.name) === playerTwo.name + ' wins') {
+      if (winCondition(playerOne.name, playerTwo.name) === playerOne.name + ' wins' || winCondition(playerOne.name, playerTwo.name) === playerTwo.name + ' wins' || winCondition(playerOne.name, playerTwo.name) === 'draw') {
         if (winCondition(playerOne.name, playerTwo.name) === playerOne.name + ' wins') {
           playerOne.increasePoints();
         } else if (winCondition(playerOne.name, playerTwo.name) === playerTwo.name + ' wins') {
@@ -123,10 +121,8 @@ const winCondition = function (playerOneName, playerTwoName) {
       return playerOneName + ' wins';
     } else if (squares[something[i][0]] === 'O' && squares[something[i][1]] === 'O' && squares[something[i][2]] === 'O') {
       return playerTwoName + ' wins';
-    } else if (squares[something[i][0]] !== 'X' && squares[something[i][1]] !== 'X' && squares[something[i][2]] !== 'X') {
-      if (squares[something[i][0]] !== 'O' && squares[something[i][1]] !== 'O' && squares[something[i][2]] !== 'O') {
-        return 'draw';
-      }
+    } else if (i == something.length - 1 && squares[something[i][0]] !== '' && squares[something[i][1]] !== '' && squares[something[i][2]] !== '') {
+      return 'draw';
     }
   }
 }
