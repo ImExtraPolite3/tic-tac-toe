@@ -24,22 +24,49 @@ const connectBoard = function () {
   return createGameboard;
 };
 
-function userInput() {
+const grabNames = function() {
+  const getName = document.querySelector('.grab-names');
+  const getPlayerOneName = document.getElementById('get-pOne-name');
+  const getPlayerTwoName = document.getElementById('get-pTwo-name');
+  const askName = document.querySelector('.get-name');
+  const board = document.querySelector('.board');
+  const noName = document.querySelector('.no-name-hide');
+
+  getName.addEventListener('click', () => {
+    if (getPlayerOneName.value !== '' && getPlayerTwoName.value !== '') {
+      askName.classList.add('hide');
+      board.classList.remove('hide');
+      board.classList.add('show');
+
+      userInput(getPlayerOneName.value, getPlayerTwoName.value);
+    } else {
+      noName.className = 'no-name-show';
+    }
+  })
+}
+
+function userInput(getPlayerOneName, getPlayerTwoName) {
   const board = document.querySelectorAll('.board-square');
-  const playerOne = createPlayer('player one', 'X');
-  const playerTwo = createPlayer('player two', 'O');
+  const playerOne = createPlayer(getPlayerOneName, 'X');
+  const playerTwo = createPlayer(getPlayerTwoName, 'O');
   let num = 0;
   const reset = document.querySelector('.reset');
+  const displayTurn = document.querySelector('.display-turn');
+
+  displayTurn.textContent = playerOne.name + "'s turn";
+
 
   board.forEach(eachSquare => {
     eachSquare.addEventListener('click', () => {
       if (num <= 8 && num % 2 === 0 && winCondition(playerOne.name, playerTwo.name) !== playerOne.name + ' wins') {
         if (eachSquare.textContent === '') {
+          displayTurn.textContent = playerTwo.name + "'s turn";
           eachSquare.textContent = playerOne.choice;
           num++;
         }
       } else if (num <= 8 && num % 2 !== 0 && winCondition(playerOne.name, playerTwo.name) !== playerTwo.name + ' wins') {
         if (eachSquare.textContent === '') {
+          displayTurn.textContent = playerOne.name + "'s turn";
           eachSquare.textContent = playerTwo.choice;
           num++;
         }
@@ -53,6 +80,7 @@ function userInput() {
         }
 
         announce(winCondition(playerOne.name, playerTwo.name), playerOne.getPoint(), playerTwo.getPoint(), playerOne.name, playerTwo.name);
+        displayTurn.textContent = playerOne.name + "'s turn";
         num = 0;
       }
       playAnotherGame();
@@ -127,4 +155,4 @@ const winCondition = function (playerOneName, playerTwoName) {
   }
 }
 
-userInput();
+grabNames();

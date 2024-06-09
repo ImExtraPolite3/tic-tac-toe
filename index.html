@@ -10,7 +10,20 @@
   <div class="container">
     <h1>TIC TAC TOE</h1>
 
-    <div class="board">
+    <h3 class="display-turn"></h3>
+
+    <div class="get-name">
+      <label for="get-pOne-name">Player One Name:</label>
+      <input type="text" id="get-pOne-name" name="get-pOne-name">
+
+      <label for="get-pTwo-name">Player Two Name:</label>
+      <input type="text" name="get-pTwo-name" id="get-pTwo-name">
+
+      <p class="no-name-hide">please enter a name</p>
+      <button class="grab-names">submit</button>
+    </div>
+
+    <div class="board hide">
       <div class="board-square"></div>
       <div class="board-square"></div>
       <div class="board-square"></div>
@@ -30,7 +43,7 @@
         <p class="players-two-score"></p>
       </div>
 
-      <div>
+      <div class="restart-button">
         <button class="next-game">Player another game?</button>
         <button class="reset">Reset</button>
       </div>
