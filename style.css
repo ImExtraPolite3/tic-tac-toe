@@ -1,10 +1,10 @@
 @font-face {
-  font-family: 'roboto';
-  src: url(fonts/Roboto-Thin.ttf);
+  font-family: 'Source Sans 3';
+  src: url(fonts/SourceSans3-Regular.ttf);
 }
 
 body {
-  font-family: 'roboto';
+  font-family: 'Source Sans 3';
 }
 
 h1 {
@@ -21,7 +21,7 @@ h1 {
   border: solid;
   height: 150px;
   text-align: center;
-  font-size: 8.5rem;
+  font-size: 6.5rem;
 }
 
 .after-game {
